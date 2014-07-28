@@ -22,7 +22,7 @@ require 'rspec/core/rake_task'
 
 desc 'Display the current version number'
 task :version do
-  puts "Version #{TFSandbox::Version}"
+  puts "Version #{KualityOle::Version}"
 end
 
 desc 'Remove all test data and screenshots'
