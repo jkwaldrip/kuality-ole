@@ -1,0 +1,21 @@
+# The default users and roles here are populated from the OLE Demo Data,
+# available at:
+#   http://demo.ole.kuali.org/
+#
+---
+- :username: ole-quickstart
+  :role: default
+  :name: OLE Quickstart
+- :username: dev2
+  :role: circulation
+  :name: Development 2
+- :username: admin
+  :role: admin
+  :name: Administrator
+- :username: ole-rorenfro
+  :role: fiscal officer
+  :name: Roberta Renfrow
+- :username: ole-khuntley
+  :name: Keisha Huntley
+  :role: acquisitions
+  :save?: true

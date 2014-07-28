@@ -1,0 +1,8 @@
+# Circulation data, originally from the Kuali OLE Development Environment at:
+#   http://dev.ole.kuali.org/
+---
+- :code: BL_EDUC
+  :name: BL Education
+  :locations:
+    - B-EDUC/BED-TEACHMAT
+    - B-EDUC/BED-STACKS
