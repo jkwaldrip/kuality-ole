@@ -53,9 +53,4 @@ class MarcDataLine < InfoObject
     @value            = options[:value]
     @subfield         = "#{@subfield_code} #{value}"
   end
-
-  # Convert the info in this MarcDataLine class to a MARC::DataField in RubyMarc.
-  def to_mrc
-
-  end
 end
