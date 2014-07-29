@@ -26,7 +26,7 @@ describe 'Watir-Webdriver' do
   end
 
   it 'opens a new browser in headless mode' do
-    @browser = KualityOle::start_browser
+    @browser = KualityOle.start_browser
     expect(@browser).to be_a(Watir::Browser)
   end
 end

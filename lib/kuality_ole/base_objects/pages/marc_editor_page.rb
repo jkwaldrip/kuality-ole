@@ -16,7 +16,7 @@
 #   (Contains methods used by Marc Bib Editor, Holdings Editor, & Item Editor)
 class MarcEditorPage < KradPage
 
-  page_url "#{KualityOle::url}portal.do?channelTitle=Marc Editor&channelUrl=#{KualityOle::url}ole-kr-krad/editorcontroller?viewId=EditorView&methodToCall=load&docCategory=work&docType=bibliographic&docFormat=marc&editable=true"
+  page_url "#{KualityOle.url}portal.do?channelTitle=Marc Editor&channelUrl=#{KualityOle.url}ole-kr-krad/editorcontroller?viewId=EditorView&methodToCall=load&docCategory=work&docType=bibliographic&docFormat=marc&editable=true"
 
   # -- Message Handling --
   element(:message_list)                        {|b| b.iframeportlet.ul(:id => 'pageValidationList')}

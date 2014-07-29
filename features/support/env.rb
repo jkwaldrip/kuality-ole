@@ -32,7 +32,7 @@ end
 
 After do |scenario|
   if scenario.failed?
-    filename = "#{Time.now.strftime('%Y%m%d-%I%M%p')}-#{scenario.name.gsub(/\s/,'_')}.png"
+    filename = "#{KualityOle.timestamp}-#{scenario.name.gsub(/\s/,'_')}.png"
     @browser.screenshot.save("screenshots/#{filename}")
   end
   @browser.close unless @browser.nil?

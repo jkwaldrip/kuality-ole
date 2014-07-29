@@ -23,7 +23,7 @@ class LoginPage < BasePage
   element(:logout_button)               {|b| b.input(:class => 'go',:value => 'Logout')}
 
   # Set up backdoorlogin elements if testing against a development environment.
-  if KualityOle::development?
+  if KualityOle.development?
     element(:login_confirmation)        {|b| b.div(:id => 'login-info').strong(:text => /Impersonating User\:/)}
     value(:logged_in_as)                {|b| b.div(:id => 'login-info').strong(:index => 0).text.match(/(?:\:\s)([\w\-\_]+)/)[1]}
     value(:impersonating)               {|b| elmnt = b.div(:id => 'login-info').strong(:index => 1)

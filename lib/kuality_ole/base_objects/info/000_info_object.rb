@@ -21,16 +21,19 @@ class InfoObject
   include DateFactory
   include KualityOle::Helpers
 
+  # Create an instance variable and accessor for each key in the given hash.
+  # @note Keys ending in question marks are automatically ignored.
   def opts_to_vars(hsh)
+    hsh = hsh.reject {|k,v| k.to_s[/\?$/]}
     hsh.each do |k,v|
-      # Set instance variables.
+      # Set instance variables
       instance_variable_set("@#{k}",v)
       eigenclass = class << self
         self
       end
-      # Create accessors, unless the key ends in a question mark.
+      # Create accessors
       eigenclass.class_eval do
-        attr_accessor k unless k.to_s[/\?$/]
+        attr_accessor k
       end
     end
   end

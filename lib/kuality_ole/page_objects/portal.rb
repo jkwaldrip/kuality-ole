@@ -15,6 +15,6 @@
 # A general purpose page object to represent the main UI Portal in OLE.
 class PortalPage < BasePage
 
-  page_url "#{KualityOle::url}"
+  page_url "#{KualityOle.url}"
 
 end

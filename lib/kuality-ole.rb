@@ -79,8 +79,20 @@ module KualityOle
   Dir['lib/kuality_ole/data_objects/**/*.rb'].sort.each {|file| require file}
 
   # Add directories if they do not already exist.
-  ['screenshots','data','data/downloads','data/uploads'].each do |dir|
+  ['screenshots','data','data/downloads','data/downloads/mrc','data/uploads','data/uploads/mrc'].each do |dir|
     FileUtils::mkdir(dir) unless File.directory?(dir)
+  end
+
+  # -- UTILITIES SECTION --
+
+  class << self
+    
+    # Set a standard timestamp for use across the application.
+    # @note Mainly used for filenames.
+    def timestamp
+      Time.now.strftime('%Y%m%d-%I%M%p')
+    end
+
   end
 
   # -- BROWSER SECTION --
