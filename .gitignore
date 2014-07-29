@@ -25,3 +25,5 @@ tmp
 mkmf.log
 *.swp
 screenshots/
+data/uploads
+data/downloads
