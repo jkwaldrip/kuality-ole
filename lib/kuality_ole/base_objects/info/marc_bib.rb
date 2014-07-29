@@ -43,6 +43,9 @@ class MarcBib < InfoObject
   end
 
   # Convert the info in this MarcBib class to a RubyMarc record.
+  # - Creates an @record instance variable on the MarcBib instance.
+  # - Creates a :record accessor on the MarcBib instance.
+  #
   # Options:
   #       :record             Object          The MARC::Record instance to which lines will be appended.
   #
@@ -60,8 +63,10 @@ class MarcBib < InfoObject
     true
   end
 
-  # Write the record to a Marc (.mrc) file.
-  # @note This method expects a title to exist!
+  # Write a single record to a Marc (.mrc) file.
+  # @note This method expects an @title and an @record to exist!
+  #   The intended usage is to invoke .to_mrc first, followed by .to_file
+  #
   # Options:
   #       :filename           String          The name of the file, written to data/uploads/mrc/
   #       :path               String          The path of the file to be written.
