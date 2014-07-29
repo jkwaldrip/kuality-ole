@@ -38,4 +38,14 @@ describe 'A MARC Bib Record' do
     expect(bib.marc_lines[1].value).to eq(bib.author)
   end
 
+  it 'can be converted to a .mrc record' do
+    expect(bib.to_mrc).to be_true
+    expect(bib.record).to be_a(MARC::Record)
+  end
+
+  it 'can be written to a file' do
+    bib.to_mrc
+    expect(bib.to_file).to be_true
+    expect(File.exists?("data/uploads/mrc/#{bib.filename}")).to be_true
+  end
 end
