@@ -52,6 +52,7 @@ class MarcBib < InfoObject
     }
     opts = defaults.merge(opts)
     opts_to_vars(opts)
+    @record.append(MARC::ControlField.new('008',@control_008)) # TODO Make this iterative for all control fields.
     @marc_lines.each do |line|
       @record.append(MARC::DataField.new(line.tag,line.ind_1,line.ind_2,[line.subfield_code,line.value]))
     end
@@ -71,7 +72,7 @@ class MarcBib < InfoObject
     raise KualityOle::Error,"MARC::Record not found." unless @record.is_a?(MARC::Record)
     # TODO Create :format option to enable Marc-XML support.
     defaults = {      
-      :filename         => "#{@title}-#{KualityOle.timestamp}.mrc",
+      :filename         => "#{KualityOle.timestamp}-#{@title}.mrc",
       :path             => 'data/uploads/mrc/',
       :force?           => false
       # :writer is given in opts or created later.
