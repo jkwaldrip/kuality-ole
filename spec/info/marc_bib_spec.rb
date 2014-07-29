@@ -16,36 +16,43 @@ require 'spec_helper'
 
 describe 'A MARC Bib Record' do
 
-  let(:bib)                  {MarcBib.new}
+  before :all do
+    @bib = MarcBib.new
+    @info = {}
+  end
 
   it 'has a title' do
-    expect(bib.title).to be_a(String)
+    expect(@bib.title).to be_a(String)
   end
 
   it 'has an author' do
-    expect(bib.author).to be_a(String)
+    expect(@bib.author).to be_a(String)
   end
 
   it 'has an array of Marc lines' do
-    expect(bib.marc_lines).to be_an(Array)
+    expect(@bib.marc_lines).to be_an(Array)
   end
   
   it 'has the title as a Marc line' do
-    expect(bib.marc_lines[0].value).to eq(bib.title)
+    expect(@bib.marc_lines[0].value).to eq(@bib.title)
   end
 
   it 'has the author as a Marc line' do
-    expect(bib.marc_lines[1].value).to eq(bib.author)
+    expect(@bib.marc_lines[1].value).to eq(@bib.author)
   end
 
   it 'can be converted to a .mrc record' do
-    expect(bib.to_mrc).to be_true
-    expect(bib.record).to be_a(MARC::Record)
+    expect(@bib.to_mrc).to be_true
+    expect(@bib.record).to be_a(MARC::Record)
   end
 
   it 'can be written to a file' do
-    bib.to_mrc
-    expect(bib.to_file).to be_true
-    expect(File.exists?("data/uploads/mrc/#{bib.filename}")).to be_true
+    expect(@bib.to_file).to be_true
+    expect(File.exists?("data/uploads/mrc/#{@bib.filename}")).to be_true
+  end
+
+  it 'can overwrite a previous file' do
+    expect(File.exists?(@bib.path + @bib.filename)).to be_true
+    expect(@bib.to_file(:filename => @bib.filename,:force? => true)).to be_true
   end
 end

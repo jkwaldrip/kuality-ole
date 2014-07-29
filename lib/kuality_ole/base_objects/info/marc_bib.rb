@@ -66,7 +66,6 @@ class MarcBib < InfoObject
   #       :filename           String          The name of the file, written to data/uploads/mrc/
   #       :path               String          The path of the file to be written.
   #       :force?             Boolean         Whether to overwrite an existing file.
-  #       :writer             Object          The MARC::Writer instance to which the file will be written.
   #
   def to_file(opts={})
     raise KualityOle::Error,"MARC::Record not found." unless @record.is_a?(MARC::Record)
@@ -75,7 +74,6 @@ class MarcBib < InfoObject
       :filename         => "#{KualityOle.timestamp}-#{@title}.mrc",
       :path             => 'data/uploads/mrc/',
       :force?           => false
-      # :writer is given in opts or created later.
     }
     opts = defaults.merge(opts)
     opts[:filename] += '.mrc' unless opts[:filename][/\.mrc$/] # TODO Rewrite validation for Marc-XML support.
@@ -85,8 +83,9 @@ class MarcBib < InfoObject
     if File.exists?("data/uploads/mrc/#{@filename}") && !opts[:force?]
       raise KualityOle::Error,"MARC file already exists, use the :force? => true option to overwrite.\n(Given: #{filename})."
     end
-    @writer ||= MARC::Writer.new("#{@path}#{@filename}")
-    @writer.write(@record)
+
+    writer = MARC::Writer.new("#{@path}#{@filename}")
+    writer.write(@record)
   end
 
   class << self
