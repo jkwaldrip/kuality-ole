@@ -12,6 +12,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-module KualityOle
-  Version = "0.0.2"
+# A collection of MarcRecord classes.
+class MarcRecords < DataFactory
 end

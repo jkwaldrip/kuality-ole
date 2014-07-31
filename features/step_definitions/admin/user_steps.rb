@@ -23,7 +23,7 @@ end
 
 Then /^I login$/ do
   @user.open_portal
-  expect(@user.login).to be_truthy
+  expect(@user.login).to be_true
 end
 
 Then /^I logout$/ do

@@ -16,29 +16,46 @@
 #   This class serves as a container for MARC record bibliographic data.
 class MarcBib < InfoObject
 
+  # A title and an author will be pulled from the :marc_lines array if they are found there.
+  # @note A bibliographic record in OLE requires at least a title (245 $a).
+  #   To allow for failure-case testing, this class will accept an empty Marc lines array.
+  #
   # Params:
-  #   :title              String        The title on the bib record.    (Marc 245 $a)
-  #   :author             String        The author on the bib record.   (Marc 100 $a)
   #   :marc_lines         Array         An array of MARC data values not named above,
   #                                     instantiated as MarcDataLine objects.
+  #                                     Defaults to one title line and one author line.
   #                                     (See lib/kuality_ole/base_objects/etc/marc_data_line.rb)
+  #
+  #   :leader             String        The leader field on the bib record.
+  #                                     In OLE, the default value is '00168nam a2200073 a 4500';
+  #                                     this value is required for any records to be imported.
+  #
   #   :control_008        String        The 008 control field on the bib record.  (Marc 008, Fixed-Length)
+  #
   def initialize(opts={})
     defaults = {
-        :title                => random_letters(pick_range(9..13)).capitalize,
-        :author               => random_name,
-        :marc_lines           => [],
+        :marc_lines           => [
+          MarcDataLine.new(:tag => '245',:subfield_codes => ['|a'],:values => [random_letters(pick_range(9..13)).capitalize]),
+          MarcDataLine.new(:tag => '100',:subfield_codes => ['|a'],:values => [random_name])
+        ],
+        :leader               => '00168nam a2200073 a 4500',
         :control_008          => '140212s        xxu           000 0 eng d'
     }
 
     @options = defaults.merge(opts)
+    @options[:title] = if @options[:marc_lines].detect {|line| line.tag == '245'} 
+                         @options[:marc_lines].detect {|line| line.tag == '245'}.values.join
+                       else
+                         ''
+                       end
+    @options[:author] = if @options[:marc_lines].detect {|line| line.tag == '100'}
+                          @options[:marc_lines].detect {|line| line.tag == '100'}.values.join
+                        else
+                          ''
+                        end
     opts_to_vars(@options)
 
-    # Add MARC Data Lines for title and author.
-    @marc_lines.unshift(
-        MarcDataLine.new(:tag => '100',:subfield => '|A',:value => @title),
-        MarcDataLine.new(:tag => '245',:subfield => '|A',:value => @author)
-    )
+    # TODO Rewrite class and spec with expectation that :title and :author are derived, not parameters
 
   end
 
@@ -57,7 +74,12 @@ class MarcBib < InfoObject
     opts_to_vars(opts)
     @record.append(MARC::ControlField.new('008',@control_008)) # TODO Make this iterative for all control fields.
     @marc_lines.each do |line|
-      @record.append(MARC::DataField.new(line.tag,line.ind_1,line.ind_2,[line.subfield_code,line.value]))
+      @record.append(MARC::DataField.new(
+        line.tag,
+        line.ind_1,
+        line.ind_2,
+        *(line.subfield_codes.each_with_index.collect {|sfc,i| [sfc,line.values[i]]})
+      ))
     end
 
     true
@@ -94,9 +116,25 @@ class MarcBib < InfoObject
   end
 
   class << self
-    # TODO Create a new MarcBib from an existing Marc (.mrc) file with RubyMarc.
-    def from_mrc
+    # Create a new MarcBib instance from an existing MARC::Record class.
+    # @note The default MARC::Record leader value differs from OLE's preferred value,
+    #   and may not be accepted by the system, especially in case of imports.
+    #   See parameter notes on .initialize for more.
+    #
+    # Params:
+    #     record        Object      An existing MARC::Record instance from the Ruby-Marc gem.
+    #
+    def from_marc(record)
+      opts = {}
+      opts[:leader]       = record.leader
+      opts[:control_008]  = record.find {|field| field.tag == '008'}.value if record.tags.include?('008')
+      opts[:marc_lines]   = Array.new( record.fields.select {|field| ! ('001'..'009').include?(field.tag) } ).collect do |fld|
+        MarcDataLine.from_field(fld)
+      end
+      self.new(opts)
     end
-    alias_method(:new_from_mrc,:from_mrc)
+    alias_method(:new_from_marc,:from_marc)
+    alias_method(:from_record,:from_marc)
+    alias_method(:new_from_record,:from_marc)
   end
 end

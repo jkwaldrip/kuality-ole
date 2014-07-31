@@ -16,43 +16,102 @@ require 'spec_helper'
 
 describe 'A MARC Bib Record' do
 
-  before :all do
-    @bib = MarcBib.new
-    @info = {}
-  end
+  context 'created normally' do
 
-  it 'has a title' do
-    expect(@bib.title).to be_a(String)
-  end
+    before :all do
+      @bib = MarcBib.new
+      @info = {}
+    end
 
-  it 'has an author' do
-    expect(@bib.author).to be_a(String)
-  end
+    it 'has a title' do
+      expect(@bib.title).to be_a(String)
+    end
 
-  it 'has an array of Marc lines' do
-    expect(@bib.marc_lines).to be_an(Array)
-  end
+    it 'has an author' do
+      expect(@bib.author).to be_a(String)
+    end
+
+    it 'has a control 008 field' do
+      expect(@bib.control_008).to be_a(String)
+    end
+
+    it 'has a leader field' do
+      expect(@bib.leader).to be_a(String)
+    end
+
+    it 'has an array of Marc lines' do
+      expect(@bib.marc_lines).to be_an(Array)
+    end
   
-  it 'has the title as a Marc line' do
-    expect(@bib.marc_lines[0].value).to eq(@bib.title)
+    it 'has the title as a Marc line' do
+      expect(@bib.marc_lines[0].values[0]).to eq(@bib.title)
+    end
+
+    it 'has the author as a Marc line' do
+      expect(@bib.marc_lines[1].values[0]).to eq(@bib.author)
+    end
+
+    it 'can be converted to a .mrc record' do
+      expect(@bib.to_mrc).to be_true
+      expect(@bib.record).to be_a(MARC::Record)
+    end
+
+    it 'can be written to a file' do
+      expect(@bib.to_file).to be_true
+      expect(File.exists?("data/uploads/mrc/#{@bib.filename}")).to be_true
+    end
+
+    it 'can overwrite a previous file' do
+      expect(File.exists?(@bib.path + @bib.filename)).to be_true
+      expect(@bib.to_file(:filename => @bib.filename,:force? => true)).to be_true
+    end
+
   end
 
-  it 'has the author as a Marc line' do
-    expect(@bib.marc_lines[1].value).to eq(@bib.author)
+  context 'created from a Ruby-Marc record' do
+
+    before :all do
+      # This record is formatted for compatibility with OLE, just for reference.
+      @record = MARC::Record.new
+      @record.leader = '00168nam a2200073 a 4500'
+      @record.append MARC::ControlField.new('008','140212s        xxu           000 0 eng d')
+      @record.append MARC::DataField.new('245','0','0',['a','Test Title'])
+      @record.append MARC::DataField.new('100','0','0',['a','Test Author'])
+      @bib = MarcBib.from_marc(@record)
+    end
+
+    it 'has a title' do
+      expect(@bib.title).to eq('Test Title')
+    end
+
+    it 'has an author' do 
+      expect(@bib.author).to eq('Test Author')
+    end
+
+    it 'has a control 008 field' do
+      expect(@bib.control_008).to eq('140212s        xxu           000 0 eng d')
+    end
+
+    it 'has the title as a data line' do
+      title = @bib.marc_lines.detect {|line| line.tag == '245'}
+      expect(title.tag).to eq('245')
+      expect(title.ind_1).to eq('0')
+      expect(title.ind_2).to eq('0')
+      expect(title.subfield_codes).to eq(['|a'])
+      expect(title.values).to eq(['Test Title'])
+      expect(title.subfield).to eq('|a Test Title')
+    end
+
+    it 'has the author as a data line' do
+      author = @bib.marc_lines.detect {|line| line.tag == '100'}
+      expect(author.tag).to eq('100')
+      expect(author.ind_1).to eq('0')
+      expect(author.ind_2).to eq('0')
+      expect(author.subfield_codes).to eq(['|a'])
+      expect(author.values).to eq(['Test Author'])
+      expect(author.subfield).to eq('|a Test Author')
+    end
+
   end
 
-  it 'can be converted to a .mrc record' do
-    expect(@bib.to_mrc).to be_true
-    expect(@bib.record).to be_a(MARC::Record)
-  end
-
-  it 'can be written to a file' do
-    expect(@bib.to_file).to be_true
-    expect(File.exists?("data/uploads/mrc/#{@bib.filename}")).to be_true
-  end
-
-  it 'can overwrite a previous file' do
-    expect(File.exists?(@bib.path + @bib.filename)).to be_true
-    expect(@bib.to_file(:filename => @bib.filename,:force? => true)).to be_true
-  end
 end

@@ -46,8 +46,8 @@ class MarcRecord < DataFactory
 
   def create
     create_bib
-    # create_holdings
-    # create_item
+    create_holdings
+    create_item
   end
 
   # Create a new Holdings Record.
