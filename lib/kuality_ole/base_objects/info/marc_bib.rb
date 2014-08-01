@@ -82,8 +82,9 @@ class MarcBib < InfoObject
       ))
     end
 
-    true
+    @record
   end
+  alias_method(:to_marc,:to_mrc)
 
   # Write a single record to a Marc (.mrc) file.
   # @note This method expects an @title and an @record to exist!

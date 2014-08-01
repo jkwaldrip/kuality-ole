@@ -52,4 +52,13 @@ describe 'A MARC Record' do
     expect(@marc.holdings[0].items[1]).to be_an(ItemRecord)
   end
 
+  it 'can convert a MarcBib to Ruby-Marc format' do
+    expect(@marc.to_mrc).to be_true
+    expect(@marc.bib.record).to be_a(MARC::Record)
+  end
+
+  it 'can be created with a bib object' do
+    bib = MarcBib.new
+    expect(MarcRecord.new(@browser,:bib => bib)).to be_a(MarcRecord)
+  end
 end

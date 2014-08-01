@@ -40,6 +40,23 @@ module KualityOle
     def pick_range(r = 'A'..'Z')
       r.to_a.sample
     end
+    
+    # Create an instance variable and accessor for each key in the given hash.
+    # @note Keys ending in question marks are automatically ignored.
+    def opts_to_vars(hsh)
+      hsh = hsh.reject {|k,v| k.to_s[/\?$/]}
+      hsh.each do |k,v|
+        # Set instance variables
+        instance_variable_set("@#{k}",v)
+        eigenclass = class << self
+          self
+        end
+        # Create accessors
+        eigenclass.class_eval do
+          attr_accessor k
+        end
+      end
+    end
   end
 end
 

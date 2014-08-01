@@ -20,7 +20,11 @@
 #   instead of a dollar sign '$'.
 class MarcRecord < DataFactory
 
-  attr_accessor :bib,:holdings
+  # The MarcBib instance to use.
+  attr_accessor :bib
+  
+  # An array of HoldingsRecord instances to use.
+  attr_accessor :holdings
   alias :bib_record         :bib
   alias :holdings_records   :holdings
   alias :holdings_record    :holdings
@@ -38,7 +42,6 @@ class MarcRecord < DataFactory
         :holdings             => [HoldingsRecord.new]
     }
     options = defaults.merge(opts)
-
 
     set_options(options)
 
@@ -168,4 +171,8 @@ class MarcRecord < DataFactory
     end
   end
 
+  def to_mrc
+    @bib.to_marc
+  end
+  alias_method(:to_marc,:to_mrc)
 end
