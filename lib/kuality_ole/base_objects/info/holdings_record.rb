@@ -42,7 +42,7 @@ class HoldingsRecord < InfoObject
     # Select a Holdings location from the Circulation desk unless given.
     @options[:location] ||= @options[:circulation_desk].locations.sample
 
-    opts_to_vars(@options)
+    set_opts_attribs(@options)
   end
 
   # Create a new Item Record.

@@ -12,8 +12,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# Add Helpers module to DataFactory.
-class DataFactory
-  include KualityOle::Helpers
-  include RSpec::Matchers
+# The Patron Lookup page in the OLE Library System.
+class PatronLookupPage < KradPage
+
+  # -- Create New Patron --
+  action(:create_new)                     {|b| b.iframeportlet.link(:text => /[Cc]reate [Nn]ew/).when_present.click}
+
 end

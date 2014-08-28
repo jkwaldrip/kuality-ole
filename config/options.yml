@@ -1,9 +1,6 @@
-# Configurable default values for KualityOle
-# These values can be overridden with environment variables.
-# See comments in lib/kuality-ole.rb for more info.
 ---
-:url: http://tst.ole.kuali.org/
-:docstore_url: http://tst.docstore.ole.kuali.org/
+:url: http://qa.ole.kuali.org/
+:docstore_url: http://docstore.qa.ole.kuali.org/
 :default_wait: 30
 :headless?: true
 :development?: true

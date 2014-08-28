@@ -17,7 +17,7 @@
 # @note User configuration info is loaded from/written to:
 #   config/institutional/users.yml
 class User < DataFactory
-  
+
   attr_reader :username,:role,:name
 
   # Enter information for a new user, or select an existing user by username.
@@ -82,13 +82,13 @@ class User < DataFactory
   end
 
   private
-    
+
   # Check if a user exists in the users file. (See #lookup for parameters.)
   def user_exists?(opts)
     lookup(opts).nil? ? false : true
   end
 
-  # Destructively merge 
+  # Destructively merge
   def retrieve_user(opts)
     @options.merge!(lookup(opts))
   end

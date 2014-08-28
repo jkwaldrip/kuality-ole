@@ -12,10 +12,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# A general purpose page object to represent the main UI Portal in OLE.
-class PortalPage < BasePage
-
-  page_url "#{KualityOle.url}"
-
-  wait_on :deliver_tab,:describe_tab,:select_acquire_tab,:maintenance_tab,:admin_tab
+When /^I have a patron$/ do
+  @patron = create Patron
 end

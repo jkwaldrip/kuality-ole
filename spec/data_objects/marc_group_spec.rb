@@ -26,23 +26,23 @@ describe 'A group of Marc Records' do
   end
 
   context 'created manually' do
-    
+
     before :all do
-      @record_1     = MarcRecord.new(@browser)
-      @record_2     = MarcRecord.new(@browser)
-      @record_3     = MarcRecord.new(@browser)
-      @group        = MarcGroup.new(@browser, :records => [@record_1,@record_2,@record_3])
+      @record_1     = Resource.new(@browser)
+      @record_2     = Resource.new(@browser)
+      @record_3     = Resource.new(@browser)
+      @group        = ResourceGroup.new(@browser, :records => [@record_1,@record_2,@record_3])
     end
 
-    it 'contains several MarcRecord data objects' do
+    it 'contains several Resource data objects' do
       expect(@group.records).to be_an(Array)
       expect(@group.records[0]).to be(@record_1)
       expect(@group.records[1]).to be(@record_2)
       expect(@group.records[2]).to be(@record_3)
     end
 
-    it 'accepts additional MarcRecord data objects' do
-      record = MarcRecord.new(@browser)
+    it 'accepts additional Resource data objects' do
+      record = Resource.new(@browser)
       @group.records.push(record)
       expect(@group.records[-1]).to be(record)
     end
@@ -56,14 +56,14 @@ describe 'A group of Marc Records' do
   context 'created from a file' do
 
     before :all do
-      @group = MarcGroup.new_from_file(@browser,'spec/data/multi-record.mrc')
-    end      
+      @group = ResourceGroup.new_from_file(@browser,'spec/data/multi-record.mrc')
+    end
 
     it 'contains multiple records' do
       expect(@group.records).to be_an(Array)
       expect(@group.records.count).to eq(3)
       @group.records.each do |record|
-        expect(record).to be_a(MarcRecord)
+        expect(record).to be_a(Resource)
       end
     end
 

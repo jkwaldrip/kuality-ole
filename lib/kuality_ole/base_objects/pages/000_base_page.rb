@@ -18,21 +18,28 @@ class BasePage < PageFactory
   # The OLE build tag (upper right-hand corner of every OLE screen.
   value(:build_info)                    {|b| b.div(:id => 'build').text}
 
+  # -- Portal Tabs --
+  # @note Visible on all except DocStore interface pages.
+  element(:deliver_tab)            {|b| b.div(:id => 'tabs').a(:title => 'Deliver')}
+  element(:describe_tab)           {|b| b.div(:id => 'tabs').a(:title => 'Describe')}
+  element(:select_acquire_tab)     {|b| b.div(:id => 'tabs').a(:title => 'Select/Acquire')}
+  element(:maintenance_tab)        {|b| b.div(:id => 'tabs').a(:title => 'Maintenance')}
+  element(:admin_tab)              {|b| b.div(:id => 'tabs').a(:title => 'Admin')}
+
   # Define blocks of elements to instantiate via method call on a page definition.
   class << self
-
-    # Define the portal tabs if they are visible on a given page.
-    def portal_tabs
-      element(:deliver_tab)            {|b| b.div(:id => 'tabs').ul.li.a(:title => 'Deliver')}
-      element(:describe_tab)           {|b| b.div(:id => 'tabs').ul.li.a(:title => 'Describe')}
-      element(:deliver_tab)            {|b| b.div(:id => 'tabs').ul.li.a(:title => 'Select/Acquire')}
-      element(:maintenance_tab)        {|b| b.div(:id => 'tabs').ul.li.a(:title => 'Maintenance')}
-      element(:admin_tab)              {|b| b.div(:id => 'tabs').ul.li.a(:title => 'Admin')}
-    end
 
     # Call this method on a page to create frame elements.
     def uses_frames
       element(:iframeportlet)                       {|b| b.iframe(:id => 'iframeportlet')}
     end
+
+    # Return the current date in MM/DD/YYYY format.
+    #   This is included here so that actions which require a date to be input
+    #   may have a default value.
+    def today
+      KualityOle.today
+    end
+
   end
 end

@@ -40,10 +40,17 @@ module KualityOle
     def pick_range(r = 'A'..'Z')
       r.to_a.sample
     end
-    
+
+    # Make a symbol out of a string, suitable for use as a hash key.
+    def keyify(str)
+      str.gsub(' ','_').downcase.to_sym
+    end
+  end
+
+  module DataHelpers
     # Create an instance variable and accessor for each key in the given hash.
     # @note Keys ending in question marks are automatically ignored.
-    def opts_to_vars(hsh)
+    def set_opts_attribs(hsh)
       hsh = hsh.reject {|k,v| k.to_s[/\?$/]}
       hsh.each do |k,v|
         # Set instance variables
@@ -59,5 +66,3 @@ module KualityOle
     end
   end
 end
-
-

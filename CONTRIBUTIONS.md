@@ -36,3 +36,7 @@ This gem relies on the following dependencies:
 * TestFactory
     * Apache 2 License
         * Copyright 2004, rSmart
+* Dynamic Callbacks
+    * No copyright notice given
+        * 2011, Matt Sears, http://www.mattsears.com
+        * 2013, Edward Anderson, https://github.com/nilbus

@@ -19,6 +19,9 @@ require 'lib/kuality-ole.rb'
 require 'rspec/expectations'
 
 World(RSpec::Matchers)
+World(Foundry)
+World(StringFactory)
+World(KualityOle::Helpers)
 
 # Set up Headless.
 if KualityOle.options[:headless?]

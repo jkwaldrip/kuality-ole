@@ -53,7 +53,7 @@ class MarcBib < InfoObject
                         else
                           ''
                         end
-    opts_to_vars(@options)
+    set_opts_attribs(@options)
 
     # TODO Rewrite class and spec with expectation that :title and :author are derived, not parameters
 
@@ -71,7 +71,7 @@ class MarcBib < InfoObject
       :record           => MARC::Record.new
     }
     opts = defaults.merge(opts)
-    opts_to_vars(opts)
+    set_opts_attribs(opts)
     @record.append(MARC::ControlField.new('008',@control_008)) # TODO Make this iterative for all control fields.
     @marc_lines.each do |line|
       @record.append(MARC::DataField.new(
@@ -106,7 +106,7 @@ class MarcBib < InfoObject
     opts = defaults.merge(opts)
     opts[:filename] += '.mrc' unless opts[:filename][/\.mrc$/] # TODO Rewrite validation for Marc-XML support.
     opts[:path]     += '/' unless opts[:path][/\//]
-    opts_to_vars(opts)
+    set_opts_attribs(opts)
 
     if File.exists?("data/uploads/mrc/#{@filename}") && !opts[:force?]
       raise KualityOle::Error,"MARC file already exists, use the :force? => true option to overwrite.\n(Given: #{filename})."

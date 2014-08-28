@@ -25,12 +25,12 @@ class ItemRecord < InfoObject
   def initialize(opts = {})
     defaults = {
         :number               => 1,
-        :barcode              => random_num_string(pick_range(9..16),"OLEQA"),
+        :barcode              => random_num_string(pick_range(6..8),"OLEQA"),
         :type                 => 'Book',
         :status               => 'Available'
     }
     @options = defaults.merge(opts)
 
-    opts_to_vars(@options)
+    set_opts_attribs(@options)
   end
 end

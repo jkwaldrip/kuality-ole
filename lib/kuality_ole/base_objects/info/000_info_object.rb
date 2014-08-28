@@ -20,5 +20,6 @@ class InfoObject
   include StringFactory
   include DateFactory
   include KualityOle::Helpers
+  include KualityOle::DataHelpers
 
 end

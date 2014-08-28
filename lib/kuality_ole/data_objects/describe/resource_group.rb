@@ -12,20 +12,20 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# A group of MarcRecord data objects.
-# 
+# A group of Resource data objects.
+#
 #   This class is primarily used to handle read/write operations on
 #   multiple MARC records in a single file.
-class MarcGroup < DataFactory
+class ResourceGroup < DataFactory
 
   # Options:
-  #   :records      Array         An array of MarcRecord data objects.
+  #   :records      Array         An array of Resource data objects.
   #
   def initialize(browser,opts={})
     @browser = browser
     defaults = {:records => []}
     options = defaults.merge(opts)
-    opts_to_vars(options)
+    set_opts_attribs(options)
   end
 
   # Write all records to a file.
@@ -40,7 +40,7 @@ class MarcGroup < DataFactory
       :filename   => "#{random_letters(3)}-#{KualityOle.timestamp}.mrc",
       :path   => 'data/uploads/mrc/'
     }
-    opts_to_vars(defaults.merge(opts))
+    set_opts_attribs(defaults.merge(opts))
     @filename += '.mrc' unless @filename[/\.mrc$/]
     @path     += '/' unless @path[/\/$/]
     writer = MARC::Writer.new(File.expand_path(@path + @filename))
@@ -66,8 +66,8 @@ class MarcGroup < DataFactory
         :filename     => file.split('/')[-1],
         :path         => file.match(/(^.*\/)(?:[\w\_\-\.]+$)/)[1]
       }
-      opts[:records] = MARC::Reader.new(file).collect {|rec| MarcBib.from_record(rec)}.collect do |bib| 
-        MarcRecord.new(@browser, {:bib => bib})
+      opts[:records] = MARC::Reader.new(file).collect {|rec| MarcBib.from_record(rec)}.collect do |bib|
+        Resource.new(@browser, {:bib => bib})
       end
       self.new(@browser,opts)
     end

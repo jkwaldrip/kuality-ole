@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 Given /^I have a resource$/ do
-  @resource = MarcRecord.new @browser
+  @resource = Resource.new @browser
 end
 
 When /^I enter a new bib record$/ do
@@ -26,4 +26,9 @@ end
 
 When /^I enter a new item record$/ do
   @resource.create_item
+end
+
+Given /^I create a resource$/ do
+  @resource = Resource.new @browser
+  @resource.create
 end

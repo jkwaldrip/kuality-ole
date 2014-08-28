@@ -12,10 +12,20 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# A general purpose page object to represent the main UI Portal in OLE.
-class PortalPage < BasePage
+require 'rspec'
+require 'spec_helper'
 
-  page_url "#{KualityOle.url}"
+describe 'Kuality OLE' do
 
-  wait_on :deliver_tab,:describe_tab,:select_acquire_tab,:maintenance_tab,:admin_tab
+  context 'has localization options' do
+    it 'with a default country' do
+      expect(KualityOle::Country).to eq('United States')
+    end
+
+    it 'with an array of states' do
+      expect(KualityOle::States).to be_an(Array)
+      expect(KualityOle::States.count).to eq(50)
+    end
+  end
+
 end

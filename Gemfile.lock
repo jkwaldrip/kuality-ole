@@ -9,7 +9,7 @@ PATH
       net-http-persistent
       numerizer
       rspec (~> 2.14)
-      test-factory
+      test-factory (>= 0.5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -52,7 +52,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0.4)
-    test-factory (0.5.0)
+    test-factory (0.5.2)
       watir-webdriver (>= 0.6.4)
     unf (0.1.4)
       unf_ext

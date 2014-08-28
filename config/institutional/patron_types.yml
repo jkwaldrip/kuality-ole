@@ -1,0 +1,10 @@
+# The default patron types found here are populated from the OLE Demo Data,
+# available at:
+#   http://demo.ole.kuali.org/
+#
+---
+:default:       UnderGrad
+:student:       UnderGrad
+:grad_student:  Graduate
+:faculty:       Faculty
+:staff:         Staff

@@ -17,17 +17,17 @@ class BibEditorPage < MarcEditorPage
 
   # -- MARC Data Lines --
   # - Pass a 0-based locator (i) to dynamically select line elements.
-  element(:tag_field)                           {|i,b| b.iframeportlet.text_field(:id => "dataField_tag_id_line#{i}_control")}
-  element(:ind_1_field)                         {|i,b| b.iframeportlet.text_field(:id => "dataField_ind1_id_line#{i}_control")}
-  element(:ind_2_field)                         {|i,b| b.iframeportlet.text_field(:id => "dataField_ind2_id_line#{i}_control")}
-  element(:value_field)                         {|i,b| b.iframeportlet.text_field(:id => "dataField_value_id_line#{i}_control")}
+  element(:tag)                                 {|i,b| b.iframeportlet.text_field(:id => "dataField_tag_id_line#{i}_control")}
+  element(:ind_1)                               {|i,b| b.iframeportlet.text_field(:id => "dataField_ind1_id_line#{i}_control")}
+  element(:ind_2)                               {|i,b| b.iframeportlet.text_field(:id => "dataField_ind2_id_line#{i}_control")}
+  element(:subfield)                            {|i,b| b.iframeportlet.text_field(:id => "dataField_value_id_line#{i}_control")}
   element(:add_button)                          {|i,b| b.iframeportlet.button(:id => "dataField_addTagButton_id_line#{i}")}
   element(:remove_button)                       {|i,b| b.iframeportlet.button(:id => "dataField_removeTagButton_id_line#{i}")}
   # - Data Line Control -
   action(:add_line)                             {|i,b| b.add_button(i).when_present.click}
   action(:remove_line)                          {|i,b| b.remove_button(i).when_present.click}
 
-  alias_method(:indicator_1_field,:ind_1_field)
-  alias_method(:indicator_2_field,:ind_2_field)
+  alias_method(:indicator_1,:ind_1)
+  alias_method(:indicator_2,:ind_2)
 
 end

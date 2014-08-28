@@ -18,18 +18,6 @@ class MarcEditorPage < KradPage
 
   page_url "#{KualityOle.url}portal.do?channelTitle=Marc Editor&channelUrl=#{KualityOle.url}ole-kr-krad/editorcontroller?viewId=EditorView&methodToCall=load&docCategory=work&docType=bibliographic&docFormat=marc&editable=true"
 
-  # -- Message Handling --
-  element(:message_list)                        {|b| b.iframeportlet.ul(:id => 'pageValidationList')}
-  element(:message)                             {|b| b.message_list.li(:class => 'uif-infoMessageItem')}
-  element(:messages)                            {|b| b.lis(:class => 'uif-infoMessageItem')}
-  value(:message_header)                        {|b| b.iframeportlet.h3(:class => 'uif-pageValidationHeader').text}
-  value(:all_messages)                          {|b| b.messages.each {|msg| [] << msg.text}}
-
-  # -- Error Handling --
-  element(:error)                               {|b| b.message_list.li(:class => 'uif-errorMessageItem')}
-  element(:errors)                              {|b| b.message_list.lis(:class => 'uif-errorMessageItem')}
-  value(:all_errors)                            {|b| ary = [] ; b.errors.each {|msg| ary << msg.text} ; ary}
-
   # -- Buttons --
   element(:submit_button)                       {|b| b.iframeportlet.button(:id => "submitEditor")}
   element(:cancel_button)                       {|b| b.iframeportlet.button(:id => "cancelEditor")}
@@ -40,10 +28,13 @@ class MarcEditorPage < KradPage
   action(:delete_bib)                           {|b| b.iframeportlet.button(:title => 'Delete Bib').when_present.click}
   action(:add_instance)                         {|b| b.iframeportlet.button(:title => 'Add Instance').when_present.click}
   element(:add_einstance_button)                {|b| b.iframeportlet.button(:title => 'Add EInstance')}
-  element(:holdings_link)                       {|i,b| b.iframeportlet.span(:xpath => "//div[@id='holdingsItemTree_tree']/ul[@class='jstree-no-icons']/li[#{i}]/a/span[@class='uif-message']")}
-  element(:holdings_icon)                       {|i,b| b.iframeportlet.ins(:xpath => "//div[@id='holdingsItemTree_tree']/ul[@class='jstree-no-icons']/li[#{i}]/ins")}
-  element(:item_link)                           {|which_holdings,which_item,b| b.iframeportlet.a(:xpath => "//div[@id='holdingsItemTree_tree']/ul[@class='jstree-no-icons']/li[#{which_holdings}]/ul/li[#{which_item}]/a")}
+  element(:holdings_tree)                       {|i,b| b.iframeportlet.div(:id => 'holdingsItemTree_tree').ul(:class => 'jstree-no-icons').li(:index => i)}
+  element(:holdings_link)                       {|i,b| b.holdings_tree(i).a.span(:class => 'uif-message')}
+  value(:holdings_expanded?)                    {|i,b| b.holdings_tree(i).attribute_value(:class).include?('jstree-open')}
+  action(:expand_holdings)                      {|i,b| b.holdings_tree(i).ins(:class => 'jstree-icon').when_present.click unless b.holdings_expanded?(i)}
+  element(:item_link)                           {|which_holdings,which_item,b| b.iframeportlet.div(:id => 'holdingsItemTree_tree').ul(:class => 'jstree-no-icons').li(:index => which_holdings).ul.li(:index => which_item).a}
   # @note Vakata Context Menu items are only present on the screen after the containing menu header has been right-clicked.
+  #   This means that there will only ever be one of each on the screen at any given time.
   action(:delete_instance)                      {|b| b.iframeportlet.div(:id => 'vakata-contextmenu').ul.li(:index => 0).a(:rel => "Delete").when_present.click}
   action(:add_item)                             {|b| b.iframeportlet.button(:title => 'Add Item').when_present.click}
   action(:delete_item)                          {|b| b.iframeportlet.div(:id => 'vakata-contextmenu').ul.li(:index => 0).a(:rel => 'Delete').when_present.click}

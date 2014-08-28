@@ -16,4 +16,17 @@
 class KradPage < BasePage
 
   uses_frames
+
+  # -- Message Handling --
+  element(:message_list)                        {|b| b.iframeportlet.ul(:id => 'pageValidationList')}
+  element(:message)                             {|b| b.message_list.li(:class => 'uif-infoMessageItem')}
+  element(:messages)                            {|b| b.lis(:class => 'uif-infoMessageItem')}
+  value(:message_header)                        {|b| b.iframeportlet.h3(:class => 'uif-pageValidationHeader').text}
+  value(:all_messages)                          {|b| b.messages.collect {|msg| msg.text.strip}}
+
+  # -- Error Handling --
+  element(:error)                               {|b| b.iframeportlet.li(:class => 'uif-errorMessageItem')}
+  element(:errors)                              {|b| b.iframeportlet.lis(:class => 'uif-errorMessageItem')}
+  value(:all_errors)                            {|b| b.errors.collect {|err| err.text.strip}}
+
 end

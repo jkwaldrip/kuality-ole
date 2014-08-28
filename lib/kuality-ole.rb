@@ -85,12 +85,22 @@ module KualityOle
 
   # -- UTILITIES SECTION --
 
+  # Localization options to be used by tests.
+  @local = YAML.load_file('config/institutional/localization.yml')
+  Country = @local[:country]
+  States  = @local[:states]
+
   class << self
     
     # Set a standard timestamp for use across the application.
     # @note Mainly used for filenames.
     def timestamp
       Time.now.strftime('%Y%m%d-%I%M%p')
+    end
+
+    # The current day, with slashes.
+    def today
+      Time.now.strftime('%m/%d/%Y')
     end
 
   end

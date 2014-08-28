@@ -1,3 +1,4 @@
+*.komodoproject
 options.yml
 .rspec
 *.gem
