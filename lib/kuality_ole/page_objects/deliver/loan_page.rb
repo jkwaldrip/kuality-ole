@@ -47,7 +47,7 @@ class LoanPage < CirculationPage
   element(:checked_out_items)           {|b| b.iframeportlet.div(:id => 'Patron-LoanItemListSection-HorizontalBoxSection')}
   value(:checked_out_items?)            {|b| b.checked_out_items.present?}
   action(:toggle_checked_out_items)     {|b| b.checked_out_items.a(:id => 'Patron-LoanItemListSection-HorizontalBoxSection_toggle').when_present.click ; b.wait_until_loaded}
-    # Text matching must be performed by Regex due to whitespace padding.
+  # Text matching must be performed by Regex due to whitespace padding.
   element(:barcode_in_items)            {|txt,b| b.checked_out_items.table(:class => 'dataTable').a(:class => 'uif-link',:text => /#{txt}/i)}
   value(:barcode_in_items?)             {|txt,b| b.barcode_in_items(txt).present?}
   element(:text_in_items)               {|txt,b| b.checked_out_items.table(:class => 'dataTable').span(:class => 'uif-readOnlyContent',:text => /#{txt}/i)}
