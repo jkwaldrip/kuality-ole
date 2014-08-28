@@ -1,4 +1,4 @@
-###
+### 0.1.0 - 2014/08/28
 https://jira.kuali.org/browse/OLE-6841
 https://jira.kuali.org/browse/OLE-6905
 https://jira.kuali.org/browse/OLE-6904
