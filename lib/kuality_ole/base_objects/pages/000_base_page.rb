@@ -20,11 +20,16 @@ class BasePage < PageFactory
 
   # -- Portal Tabs --
   # @note Visible on all except DocStore interface pages.
-  element(:deliver_tab)            {|b| b.div(:id => 'tabs').a(:title => 'Deliver')}
-  element(:describe_tab)           {|b| b.div(:id => 'tabs').a(:title => 'Describe')}
-  element(:select_acquire_tab)     {|b| b.div(:id => 'tabs').a(:title => 'Select/Acquire')}
-  element(:maintenance_tab)        {|b| b.div(:id => 'tabs').a(:title => 'Maintenance')}
-  element(:admin_tab)              {|b| b.div(:id => 'tabs').a(:title => 'Admin')}
+  element(:deliver_tab)             {|b| b.div(:id => 'tabs').a(:title => 'Deliver')}
+  element(:describe_tab)            {|b| b.div(:id => 'tabs').a(:title => 'Describe')}
+  element(:select_acquire_tab)      {|b| b.div(:id => 'tabs').a(:title => 'Select/Acquire')}
+  element(:maintenance_tab)         {|b| b.div(:id => 'tabs').a(:title => 'Maintenance')}
+  element(:admin_tab)               {|b| b.div(:id => 'tabs').a(:title => 'Admin')}
+
+  # -- Portal Links --
+  action(:action_list)              {|b| b.a(:class => 'portal_link',:title => 'Action List').when_present.click}
+  action(:doc_search)               {|b| b.a(:class => 'portal_link',:title => 'Document Search').when_present.click }
+  action(:workbench)                {|b| b.a(:class => 'portal_link',:title => 'Search Workbench').when_present.click }
 
   # Define blocks of elements to instantiate via method call on a page definition.
   class << self
