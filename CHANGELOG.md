@@ -1,3 +1,8 @@
+### 
+https://jira.kuali.org/browse/OLE-6981
+https://jira.kuali.org/browse/OLE-6917
+https://jira.kuali.org/browse/OLE-6842
+
 ### 0.1.0 - 2014/08/28
 https://jira.kuali.org/browse/OLE-6841
 https://jira.kuali.org/browse/OLE-6905
