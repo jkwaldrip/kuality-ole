@@ -148,9 +148,16 @@ class Resource < DataFactory
     end
   end
 
-  # Lookup a record.
-  def lookup(opts = {})
-    # TODO Describe Workbench lookup support.
+  # Lookup a bib record.
+  def lookup_bib
+  end
+
+  # Lookup a hldings record.
+  def lookup_holdings(which=0)
+  end
+
+  # Lookup an item record.
+  def lookup_item(which_holdings=0,which_item=0)
   end
 
   # Open a holdings record from the Bib Editor page.
@@ -237,4 +244,8 @@ class Resource < DataFactory
       page.confirm_desk_change if page.desk_change_popup?
     end
   end
+end
+
+class ResourceCollection < CollectionsFactory
+  contains Resource
 end

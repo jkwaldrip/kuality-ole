@@ -3,6 +3,11 @@ https://jira.kuali.org/browse/OLE-6981
 https://jira.kuali.org/browse/OLE-6917
 https://jira.kuali.org/browse/OLE-6842
 
+- Handle Resources as a Collection
+    - Resource Group holds resources in a CollectionsFactory collection.
+    - CollectionsFactory now allows #add_only, which adds constituents without
+      invoking their #create methods.
+
 ### 0.1.0 - 2014/08/28
 https://jira.kuali.org/browse/OLE-6841
 https://jira.kuali.org/browse/OLE-6905

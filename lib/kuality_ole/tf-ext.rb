@@ -214,9 +214,15 @@ class CollectionsFactory
   def self.contains klass
     # Opts hash is now optional.
     define_method 'add' do |opts={}|
-      element = klass.new @browser,opts
-      element.create
-      self << element
+      constituent = klass.new @browser,opts
+      constituent.create
+      self << constituent
+    end
+
+    # Add a constituent without invoking #create.
+    define_method 'add_only' do |opts={}|
+      constituent = klass.new @browser,opts
+      self << constituent
     end
   end
 end
