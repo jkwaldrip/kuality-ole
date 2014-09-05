@@ -27,7 +27,7 @@ end
 
 desc 'Remove all test data and screenshots'
 task :clean_all do
-  files = Dir['data/downloads/*','data/upload/*','screenshots/*'].sort
+  files = Dir['data/downloads/mrc/*','data/uploads/mrc/*','screenshots/*'].sort
   if files.empty?
     puts 'No files found.'
   else
