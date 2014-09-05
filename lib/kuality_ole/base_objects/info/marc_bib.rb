@@ -72,13 +72,15 @@ class MarcBib < InfoObject
     }
     opts = defaults.merge(opts)
     set_opts_attribs(opts)
+    @record.leader = @leader
+    @record.leader = @leader
     @record.append(MARC::ControlField.new('008',@control_008)) # TODO Make this iterative for all control fields.
     @marc_lines.each do |line|
       @record.append(MARC::DataField.new(
         line.tag,
         line.ind_1,
         line.ind_2,
-        *(line.subfield_codes.each_with_index.collect {|sfc,i| [sfc,line.values[i]]})
+        *(line.subfield_codes.each_with_index.collect {|sfc,i| [sfc.gsub('|',''),line.values[i]]})
       ))
     end
 
