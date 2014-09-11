@@ -33,13 +33,14 @@ describe 'A group of resources' do
     end
 
     it 'accepts additional Resource data objects' do
-      @group.resources.add
-      expect(@group.resources.count).to be(1)
+      3.times {@group.resources.add_only}
+      expect(@group.resources.count).to be(3)
     end
 
     it 'writes multiple records to a file' do
-      expect(@group.write_to_file).to be_true
+      @group.write_to_file
       expect(File.exists?(@group.path + @group.filename)).to be_true
+      expect(File.zero?(@group.path + @group.filename)).to be_false
     end
   end
 
