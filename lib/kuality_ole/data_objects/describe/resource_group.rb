@@ -47,6 +47,7 @@ class ResourceGroup < DataFactory
     @resources.each do |resource|
       writer.write(resource.to_mrc)
     end
+    writer.close
   end
   alias_method(:write_to_file,:to_file)
 
