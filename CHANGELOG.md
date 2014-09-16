@@ -8,6 +8,7 @@ https://jira.kuali.org/browse/OLE-6842
     - CollectionsFactory now allows #add_only, which adds constituents without
       invoking their #create methods.
 - Made fixes to Marc record creation when writing to file.
+- Update to Selenium-Webdriver 2.43.0 for Firefox 32.0 support.
 
 ### 0.1.0 - 2014/08/28
 https://jira.kuali.org/browse/OLE-6841
