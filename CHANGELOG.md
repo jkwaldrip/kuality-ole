@@ -1,7 +1,7 @@
 ### 
-https://jira.kuali.org/browse/OLE-6981
-https://jira.kuali.org/browse/OLE-6917
-https://jira.kuali.org/browse/OLE-6842
+https://jira.kuali.org/browse/OLEADMIN-101
+https://jira.kuali.org/browse/OLEADMIN-97
+https://jira.kuali.org/browse/OLEADMIN-94
 
 - Handle Resources as a Collection
     - Resource Group holds resources in a CollectionsFactory collection.
@@ -9,6 +9,8 @@ https://jira.kuali.org/browse/OLE-6842
       invoking their #create methods.
 - Made fixes to Marc record creation when writing to file.
 - Update to Selenium-Webdriver 2.43.0 for Firefox 32.0 support.
+- Development subtasks are now tracked in https://jira.kuali.org/browse/OLEADMIN.
+  Updated Changelog notations in this development cycle accordingly.
 
 ### 0.1.0 - 2014/08/28
 https://jira.kuali.org/browse/OLE-6841
