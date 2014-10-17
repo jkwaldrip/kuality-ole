@@ -1,7 +1,6 @@
 ### 
 https://jira.kuali.org/browse/OLEADMIN-101
 https://jira.kuali.org/browse/OLEADMIN-97
-https://jira.kuali.org/browse/OLEADMIN-94
 
 - Handle Resources as a Collection
     - Resource Group holds resources in a CollectionsFactory collection.
