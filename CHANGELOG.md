@@ -1,5 +1,6 @@
 ### 
 https://jira.kuali.org/browse/OLEADMIN-97
+https://jira.kuali.org/browse/OLEADMIN-102
 
 - Handle Resources as a Collection
     - Resource Group holds resources in a CollectionsFactory collection.
@@ -9,6 +10,9 @@ https://jira.kuali.org/browse/OLEADMIN-97
 - Update to Selenium-Webdriver 2.43.0 for Firefox 32.0 support.
 - Development subtasks are now tracked in https://jira.kuali.org/browse/OLEADMIN.
   Updated Changelog notations in this development cycle accordingly.
+- Update language to refer to Kuality OLE, not TFSandbox, in:
+  - Changelog
+  - Gemspec
 
 ### 0.1.0 - 2014/08/28
 https://jira.kuali.org/browse/OLE-6841

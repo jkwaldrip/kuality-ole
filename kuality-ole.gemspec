@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = KualityOle::Version
   spec.authors       = ["Jain Waldrip"]
   spec.email         = ["jkwaldri@iu.edu"]
-  spec.summary       = %q{A Sandbox for TestFactory}
-  spec.description   = %q{A set of tests to determine TestFactory's compatibility with OLE}
+  spec.summary       = %q{TestFactory tests for Kuali OLE}
+  spec.description   = %q{A Cucumber-driven test application for the Kuali Open Library Environment}
   spec.homepage      = ""
   spec.license       = "ECLv2"
 
