@@ -23,7 +23,7 @@ class ResourceGroup < DataFactory
   #
   def initialize(browser,opts={})
     @browser = browser
-    defaults = {:records => []}
+    defaults = {:resources => collection(Resource)}
     options = defaults.merge(opts)
     set_opts_attribs(options)
   end
@@ -44,9 +44,10 @@ class ResourceGroup < DataFactory
     @filename += '.mrc' unless @filename[/\.mrc$/]
     @path     += '/' unless @path[/\/$/]
     writer = MARC::Writer.new(File.expand_path(@path + @filename))
-    @records.each do |record|
-      writer.write(record.to_mrc)
+    @resources.each do |resource|
+      writer.write(resource.to_mrc)
     end
+    writer.close
   end
   alias_method(:write_to_file,:to_file)
 
@@ -66,10 +67,11 @@ class ResourceGroup < DataFactory
         :filename     => file.split('/')[-1],
         :path         => file.match(/(^.*\/)(?:[\w\_\-\.]+$)/)[1]
       }
-      opts[:records] = MARC::Reader.new(file).collect {|rec| MarcBib.from_record(rec)}.collect do |bib|
-        Resource.new(@browser, {:bib => bib})
+      klas = self.new(@browser,opts)
+      MARC::Reader.new(file).collect {|rec| MarcBib.from_record(rec)}.each do |bib|
+        klas.resources.add_only :bib => bib
       end
-      self.new(@browser,opts)
+      klas
     end
     alias_method(:new_from_file,:from_file)
   end

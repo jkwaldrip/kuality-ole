@@ -20,6 +20,10 @@
 #   of the class name, rather than Collection, in order to preserve
 #   the distinction between LineCollections and normal Collections.
 #
+# @note
+#   A Line Collection for a given Line Object will generally be
+#   defined at the end of the Line Object's class file.
+#
 class LineCollection < Array
   include Foundry
 

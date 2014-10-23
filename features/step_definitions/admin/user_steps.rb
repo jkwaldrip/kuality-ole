@@ -23,12 +23,12 @@ end
 Given /^I am an? (\w+) user$/ do |role|
   @user = User.new @browser,:role => role.downcase,:lookup_role? => true
   @user.open_portal
-  expect(@user.login).to be_true
+  expect(@user.login).to be_truthy
 end
 
 Then /^I login$/ do
   @user.open_portal
-  expect(@user.login).to be_true
+  expect(@user.login).to be_truthy
 end
 
 Then /^I logout$/ do

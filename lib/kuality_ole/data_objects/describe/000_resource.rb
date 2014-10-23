@@ -148,9 +148,16 @@ class Resource < DataFactory
     end
   end
 
-  # Lookup a record.
-  def lookup(opts = {})
-    # TODO Describe Workbench lookup support.
+  # Lookup a bib record.
+  def lookup_bib
+  end
+
+  # Lookup a hldings record.
+  def lookup_holdings(which=0)
+  end
+
+  # Lookup an item record.
+  def lookup_item(which_holdings=0,which_item=0)
   end
 
   # Open a holdings record from the Bib Editor page.
@@ -192,10 +199,10 @@ class Resource < DataFactory
       page.item_barcode.when_present.enter(item.barcode)
       page.wait_until_loaded
       page.confirm_loan if page.loan_popup?
-      expect(page.checked_out_items?).to be_true
-      expect(page.barcode_in_items?(item.barcode)).to be_true
-      expect(page.text_in_items?(@bib.title)).to be_true
-      expect(page.text_in_items?(@bib.author)).to be_true
+      expect(page.checked_out_items?).to be_truthy
+      expect(page.barcode_in_items?(item.barcode)).to be_truthy
+      expect(page.text_in_items?(@bib.title)).to be_truthy
+      expect(page.text_in_items?(@bib.author)).to be_truthy
     end
   end
 
@@ -211,10 +218,10 @@ class Resource < DataFactory
       select_circ_desk(page,desk)
       page.item_barcode.enter(item.barcode)
       page.wait_until_loaded
-      expect(page.items_returned?).to be_true
-      expect(page.barcode_in_items?(item.barcode)).to be_true
-      expect(page.text_in_items?(@bib.title)).to be_true
-      expect(page.text_in_items?(@bib.author)).to be_true
+      expect(page.items_returned?).to be_truthy
+      expect(page.barcode_in_items?(item.barcode)).to be_truthy
+      expect(page.text_in_items?(@bib.title)).to be_truthy
+      expect(page.text_in_items?(@bib.author)).to be_truthy
     end
   end
 
@@ -237,4 +244,8 @@ class Resource < DataFactory
       page.confirm_desk_change if page.desk_change_popup?
     end
   end
+end
+
+class ResourceCollection < CollectionsFactory
+  contains Resource
 end

@@ -15,10 +15,11 @@
 require 'rspec'
 require 'spec_helper'
 
-describe 'A group of Marc Records' do
+describe 'A group of resources' do
 
   before :all do
     @browser      = KualityOle.start_browser
+    @group        = ResourceGroup.new @browser
   end
 
   after :all do
@@ -27,29 +28,19 @@ describe 'A group of Marc Records' do
 
   context 'created manually' do
 
-    before :all do
-      @record_1     = Resource.new(@browser)
-      @record_2     = Resource.new(@browser)
-      @record_3     = Resource.new(@browser)
-      @group        = ResourceGroup.new(@browser, :records => [@record_1,@record_2,@record_3])
-    end
-
-    it 'contains several Resource data objects' do
-      expect(@group.records).to be_an(Array)
-      expect(@group.records[0]).to be(@record_1)
-      expect(@group.records[1]).to be(@record_2)
-      expect(@group.records[2]).to be(@record_3)
+    it 'contains a resource collection' do
+      expect(@group.resources).to be_a(ResourceCollection)
     end
 
     it 'accepts additional Resource data objects' do
-      record = Resource.new(@browser)
-      @group.records.push(record)
-      expect(@group.records[-1]).to be(record)
+      3.times {@group.resources.add_only}
+      expect(@group.resources.count).to be(3)
     end
 
     it 'writes multiple records to a file' do
-      expect(@group.write_to_file).to be_true
-      expect(File.exists?(@group.path + @group.filename)).to be_true
+      @group.write_to_file
+      expect(File.exists?(@group.path + @group.filename)).to be_truthy
+      expect(File.zero?(@group.path + @group.filename)).to be_falsey
     end
   end
 
@@ -60,10 +51,10 @@ describe 'A group of Marc Records' do
     end
 
     it 'contains multiple records' do
-      expect(@group.records).to be_an(Array)
-      expect(@group.records.count).to eq(3)
-      @group.records.each do |record|
-        expect(record).to be_a(Resource)
+      expect(@group.resources).to be_a(ResourceCollection)
+      expect(@group.resources.count).to eq(3)
+      @group.resources.each do |resource|
+        expect(resource).to be_a(Resource)
       end
     end
 
