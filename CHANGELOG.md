@@ -1,5 +1,4 @@
 ### 
-https://jira.kuali.org/browse/OLEADMIN-101
 https://jira.kuali.org/browse/OLEADMIN-97
 
 - Handle Resources as a Collection
