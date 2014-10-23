@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    kuality-ole (0.1.0)
+    kuality-ole (0.2.0)
       chronic
       cucumber
       headless
