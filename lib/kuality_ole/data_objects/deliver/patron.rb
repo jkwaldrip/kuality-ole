@@ -77,7 +77,7 @@ class Patron < DataFactory
       page.submit
       page.wait_until_loaded
       expect(page.all_errors.join('; ')).to eq('')
-      expect(page.all_messages.join =~ /Document was successfully submitted/i).to be_true
+      expect(page.all_messages.join =~ /Document was successfully submitted/i).to be_truthy
     end
   end
 
