@@ -53,7 +53,7 @@ describe 'A Resource' do
   end
 
   it 'can convert a MarcBib to Ruby-Marc format' do
-    expect(@resource.to_mrc).to be_true
+    expect(@resource.to_mrc).to be_truthy
     expect(@resource.bib.record).to be_a(MARC::Record)
   end
 

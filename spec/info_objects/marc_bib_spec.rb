@@ -52,18 +52,18 @@ describe 'A MARC Bib Record' do
     end
 
     it 'can be converted to a .mrc record' do
-      expect(@bib.to_mrc).to be_true
+      expect(@bib.to_mrc).to be_truthy
       expect(@bib.record).to be_a(MARC::Record)
     end
 
     it 'can be written to a file' do
-      expect(@bib.to_file).to be_true
-      expect(File.exists?("data/uploads/mrc/#{@bib.filename}")).to be_true
+      expect(@bib.to_file).to be_truthy
+      expect(File.exists?("data/uploads/mrc/#{@bib.filename}")).to be_truthy
     end
 
     it 'can overwrite a previous file' do
-      expect(File.exists?(@bib.path + @bib.filename)).to be_true
-      expect(@bib.to_file(:filename => @bib.filename,:force? => true)).to be_true
+      expect(File.exists?(@bib.path + @bib.filename)).to be_truthy
+      expect(@bib.to_file(:filename => @bib.filename,:force? => true)).to be_truthy
     end
 
   end
