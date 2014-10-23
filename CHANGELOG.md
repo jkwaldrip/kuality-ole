@@ -1,4 +1,4 @@
-### 
+### 0.2.0 - 2014/10/23 
 https://jira.kuali.org/browse/OLEADMIN-97
 https://jira.kuali.org/browse/OLEADMIN-102
 https://jira.kuali.org/browse/OLEADMIN-103
