@@ -39,8 +39,8 @@ describe 'A group of resources' do
 
     it 'writes multiple records to a file' do
       @group.write_to_file
-      expect(File.exists?(@group.path + @group.filename)).to be_true
-      expect(File.zero?(@group.path + @group.filename)).to be_false
+      expect(File.exists?(@group.path + @group.filename)).to be_truthy
+      expect(File.zero?(@group.path + @group.filename)).to be_falsey
     end
   end
 

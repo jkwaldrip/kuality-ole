@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "headless"                    # XVFB Session-Handling Gem
-  spec.add_dependency "rspec","~> 2.14"             # Provides expectation language
+  spec.add_dependency "rspec","~> 3.0"           # Provides expectation language
   spec.add_dependency "net-http-persistent"         # Stabilizes HTTP connections
   spec.add_dependency "chronic"                     # Provides Englishy date-mapping
   spec.add_dependency "numerizer"                   # Provides Englishy number support

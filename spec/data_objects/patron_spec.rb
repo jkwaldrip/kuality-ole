@@ -78,15 +78,15 @@ describe 'A patron' do
     end
 
     it 'which is verified' do
-      expect(address.verified).to be_true
+      expect(address.verified).to be_truthy
     end
 
     it 'which is preferred' do
-      expect(address.preferred).to be_true
+      expect(address.preferred).to be_truthy
     end
 
     it 'which is active' do
-      expect(address.active).to be_true
+      expect(address.active).to be_truthy
     end
 
     it 'with a line 1' do
@@ -131,11 +131,11 @@ describe 'A patron' do
     end
 
     it 'which is preferred' do
-      expect(phone.preferred).to be_true
+      expect(phone.preferred).to be_truthy
     end
 
     it 'which is active' do
-      expect(phone.active).to be_true
+      expect(phone.active).to be_truthy
     end
   end
 
@@ -148,11 +148,11 @@ describe 'A patron' do
     end
 
     it 'which is preferred' do
-      expect(email.preferred).to be_true
+      expect(email.preferred).to be_truthy
     end
 
     it 'which is active' do
-      expect(email.active).to be_true
+      expect(email.active).to be_truthy
     end
   end
 
