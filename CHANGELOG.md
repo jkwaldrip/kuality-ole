@@ -1,6 +1,7 @@
 ### 
 https://jira.kuali.org/browse/OLEADMIN-97
 https://jira.kuali.org/browse/OLEADMIN-102
+https://jira.kuali.org/browse/OLEADMIN-103
 
 - Handle Resources as a Collection
     - Resource Group holds resources in a CollectionsFactory collection.
@@ -13,6 +14,7 @@ https://jira.kuali.org/browse/OLEADMIN-102
 - Update language to refer to Kuality OLE, not TFSandbox, in:
   - Changelog
   - Gemspec
+- Update RSpec language for compatibility with version 3.0.
 
 ### 0.1.0 - 2014/08/28
 https://jira.kuali.org/browse/OLE-6841
