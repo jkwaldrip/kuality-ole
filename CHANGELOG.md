@@ -1,9 +1,12 @@
+---
 ### 
+ 
 https://jira.kuali.org/browse/OLEADMIN-312
 
 - Made Marc Bib methods #title & #author as dynamic lookups, 
   not attributes set at instance creation.
 
+---
 ### 0.2.0 - 2014/10/23 
 https://jira.kuali.org/browse/OLEADMIN-97
 https://jira.kuali.org/browse/OLEADMIN-102
@@ -22,6 +25,7 @@ https://jira.kuali.org/browse/OLEADMIN-103
   - Gemspec
 - Update RSpec language for compatibility with version 3.0.
 
+---
 ### 0.1.0 - 2014/08/28
 https://jira.kuali.org/browse/OLE-6841
 https://jira.kuali.org/browse/OLE-6905
@@ -54,7 +58,8 @@ https://jira.kuali.org/browse/OLE-6926
 - Restricted default barcode length to 13 characters total (OLEQA + 6-8 numeric characters).
 - Moved MarcEditorPage from base_objects/pages to page_objects/describe/000_marc_editor_page.
 
-## 0.0.3 - 2014/08/01
+---
+### 0.0.3 - 2014/08/01
 https://jira.kuali.org/browse/OLE-6814
 
 - Moved spec/data & spec/info to spec/data_objects & spec/info_objects.
@@ -68,7 +73,8 @@ https://jira.kuali.org/browse/OLE-6814
   - Records can be instantiated from a file by giving the filepath.
 - Moved MarcRecord class to an 000_ prefix to allow loading before MarcGroup.
 
-## 0.0.2 - 2014/07/31
+---
+### 0.0.2 - 2014/07/31
 https://jira.kuali.org/browse/OLE-6813
 
 - Fixed User steps error in RSpec login expectation, was 'be_truthy' (2.99), now 'be_true' (2.14)
@@ -81,6 +87,7 @@ https://jira.kuali.org/browse/OLE-6813
 - Created placeholder classfile for MarcRecords class, intended to handle multiple records
   for import/export file-conversion purposes.
 
-## 0.0.1 - 2014/07/29
+---
+### 0.0.1 - 2014/07/29
 
 - Initial CHANGELOG commit.
