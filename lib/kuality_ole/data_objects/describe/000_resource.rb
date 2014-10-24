@@ -150,6 +150,8 @@ class Resource < DataFactory
 
   # Lookup a bib record.
   def lookup_bib
+    visit WorkbenchPage do |page|
+    end
   end
 
   # Lookup a hldings record.

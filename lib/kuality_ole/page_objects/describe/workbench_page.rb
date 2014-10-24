@@ -13,6 +13,8 @@
 #  limitations under the License.
 
 class WorkbenchPage < KradPage
+
+  page_url "#{KualityOle.url}portal.do?channelTitle=Search Workbench&channelUrl=#{KualityOle.url}ole-kr-krad/olesearchcontroller?viewId=OLESearchView&methodToCall=start"
  
   # -- Search Controls --
   element(:document_type)                               {|b| b.iframeportlet.select_list(:id => 'DocumentAndSearchSelectionType_DocType_control')}
