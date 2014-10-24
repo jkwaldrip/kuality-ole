@@ -51,6 +51,16 @@ describe 'A MARC Bib Record' do
       expect(@bib.marc_lines[1].values[0]).to eq(@bib.author)
     end
 
+    it 'updates the title' do
+      @bib.marc_lines[0].values[0] = 'New Testing Title'
+      expect(@bib.title).to eq 'New Testing Title'
+    end
+
+    it 'updates the author' do
+      @bib.marc_lines[1].values[0] = 'New Testing Author'
+      expect(@bib.author).to eq 'New Testing Author'
+    end
+
     it 'can be converted to a .mrc record' do
       expect(@bib.to_mrc).to be_truthy
       expect(@bib.record).to be_a(MARC::Record)
