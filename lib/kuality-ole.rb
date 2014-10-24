@@ -49,6 +49,9 @@ module KualityOle
       :default_wait => ENV['OLE_WAIT']
   }.delete_if {|k,v| v.nil?}    # Do not create a key if the value is not found.
   @options.merge!(env_options)
+  @options[:url].gsub!(/portal\.(?:jsp|do)\??/,'')
+  @options[:url] + '/' unless @options[:url].match(/\/$/)
+  @options[:docstore_url] + '/' unless @options[:docstore_url].match(/\/$/)
   @url,@docstore_url = @options[:url],@options[:docstore_url]
 
   class << self
