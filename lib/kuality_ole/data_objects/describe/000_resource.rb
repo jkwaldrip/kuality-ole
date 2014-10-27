@@ -189,6 +189,18 @@ class Resource < DataFactory
 
   # Lookup an item record.
   def lookup_item(which_holdings=0,which_item=0)
+    item = @holdings[which_holdings].items[which_item]
+    visit WorkbenchPage do |page|
+      page.document_type.when_present.fit 'Item'
+      page.wait_until_loaded
+      page.search_type.when_present.fit 'Search'
+      page.wait_until_loaded
+      page.search_for.when_present.fit item.barcode
+      page.search_conditions.when_present.fit 'As a phrase'
+      page.search_in_field.when_present.fit 'Item Barcode'
+      page.search
+      expect(page.text_in_results?(item.barcode)).to be_truthy
+    end
   end
 
   # Open a holdings record from the Bib Editor page.
