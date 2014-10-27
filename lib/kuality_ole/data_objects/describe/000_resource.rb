@@ -116,7 +116,7 @@ class Resource < DataFactory
   # @note This method assumes that we're starting from the HoldingsEditorPage.
   #   When invoking this method outside of initial bib creation, please retrieve
   #   the bib record through the lookup_bib method, then open the relevant holdings
-  #   record with the open_holdings method.
+  #   record with the edit_holdings method.
   #
   # Params:
   #   which_item        Fixnum          The index of the item record to enter.
@@ -130,7 +130,7 @@ class Resource < DataFactory
   #
   def create_item(which_item = 0,which_holdings = 0)
     if which_item == 0
-      open_item(which_item,which_holdings)
+      edit_item(which_item,which_holdings)
     else
       on HoldingsEditorPage do |page|
         # add the item and wait for the blank item editor page to appear
@@ -206,7 +206,7 @@ class Resource < DataFactory
   # Open a holdings record from the Bib Editor page.
   # Params:
   #   which       Fixnum          The 1-based number of the holdings record to open.
-  def open_holdings(which = 1)
+  def edit_holdings(which = 1)
     on BibEditorPage do |page|
       page.holdings_link(which).when_present.click
     end
@@ -216,7 +216,7 @@ class Resource < DataFactory
   # Params:
   #   which_item        Fixnum      The index of the item record to open.
   #   which_holdings    Fixnum      The index of the holdings record to open.
-  def open_item(which_item = 0,which_holdings = 0)
+  def edit_item(which_item = 0,which_holdings = 0)
     on HoldingsEditorPage do |page|
       item_link = page.item_link(which_holdings,which_item)
       page.expand_holdings(which_holdings)
