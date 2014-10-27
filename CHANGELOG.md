@@ -2,9 +2,11 @@
 ### 
  
 https://jira.kuali.org/browse/OLEADMIN-312
+https://jira.kuali.org/browse/OLEADMIN-94
 
 - Made Marc Bib methods #title & #author as dynamic lookups, 
   not attributes set at instance creation.
+- Added lookup methods on Resource for bib, holdings, & item.
 
 ---
 ### 0.2.0 - 2014/10/23 
