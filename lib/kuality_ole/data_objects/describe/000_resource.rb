@@ -158,8 +158,7 @@ class Resource < DataFactory
       page.search_for.when_present.fit @bib.title
       page.search_conditions.when_present.fit 'As a phrase'
       page.search_in_field.when_present.fit 'Title'
-      page.add_line.click
-      page.wait_until_loaded
+      page.add_line
       page.search_for(1).when_present.fit @bib.author
       page.search_conditions(1).when_present.fit 'As a phrase'
       page.search_in_field(1).when_present.fit 'Author'
@@ -170,6 +169,22 @@ class Resource < DataFactory
 
   # Lookup a hldings record.
   def lookup_holdings(which=0)
+    holdings = @holdings[which]
+    visit WorkbenchPage do |page|
+      page.document_type.when_present.fit 'Holdings'
+      page.wait_until_loaded
+      page.search_type.when_present.fit 'Search'
+      page.wait_until_loaded
+      page.search_for.when_present.fit holdings.call_number
+      page.search_conditions.when_present.fit 'As a phrase'
+      page.search_in_field.when_present.fit 'ANY'
+      page.add_line
+      page.search_for(1).when_present.fit holdings.location
+      page.search_conditions(1).when_present.fit 'As a phrase'
+      page.search_in_field(1).when_present.fit 'Location'
+      page.search
+      expect(page.text_in_results?(holdings.call_number) && page.text_in_results?(holdings.location)).to be_truthy
+    end
   end
 
   # Lookup an item record.

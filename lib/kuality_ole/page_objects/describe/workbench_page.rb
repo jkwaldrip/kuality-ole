@@ -33,8 +33,8 @@ class WorkbenchPage < KradPage
   action(:join_and)                                     {|i=0,b| b.iframeportlet.radio(:id => "SearchConditions_SearchScope_id_line#{i}_control_0").click}
   action(:join_or)                                      {|i=0,b| b.iframeportlet.radio(:id => "SearchConditions_SearchScope_id_line#{i}_control_1").click}
   action(:join_not)                                     {|i=0,b| b.iframeportlet.radio(:id => "SearchConditions_SearchScope_id_line#{i}_control_2").click}
-  element(:add_line)                                    {|i=0,b| b.iframeportlet.button(:id => "addLineField-Add_line#{i}")}
-  element(:delete_line)                                 {|i=1,b| b.iframeportlet.button(:id => "deleteLineField-Delete_line#{i}")}
+  action(:add_line)                                     {|i=0,b| b.iframeportlet.button(:id => "addLineField-Add_line#{i}").when_present.click ; b.wait_until_loaded}
+  action(:delete_line)                                  {|i=1,b| b.iframeportlet.button(:id => "deleteLineField-Delete_line#{i}").when_present.click ; b.wait_until_loaded}
 
   # -- Search Results --
   element(:results)                                     {|b| b.iframeportlet.div(:id => 'SearchFieldResultSection')}
