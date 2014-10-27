@@ -13,6 +13,8 @@
 #  limitations under the License.
 
 class WorkbenchPage < KradPage
+
+  page_url "#{KualityOle.url}portal.do?channelTitle=Search Workbench&channelUrl=#{KualityOle.url}ole-kr-krad/olesearchcontroller?viewId=OLESearchView&methodToCall=start"
  
   # -- Search Controls --
   element(:document_type)                               {|b| b.iframeportlet.select_list(:id => 'DocumentAndSearchSelectionType_DocType_control')}
@@ -31,15 +33,15 @@ class WorkbenchPage < KradPage
   action(:join_and)                                     {|i=0,b| b.iframeportlet.radio(:id => "SearchConditions_SearchScope_id_line#{i}_control_0").click}
   action(:join_or)                                      {|i=0,b| b.iframeportlet.radio(:id => "SearchConditions_SearchScope_id_line#{i}_control_1").click}
   action(:join_not)                                     {|i=0,b| b.iframeportlet.radio(:id => "SearchConditions_SearchScope_id_line#{i}_control_2").click}
-  element(:add_line)                                    {|i=0,b| b.iframeportlet.button(:id => "addLineField-Add_line#{i}")}
-  element(:delete_line)                                 {|i=1,b| b.iframeportlet.button(:id => "deleteLineField-Delete_line#{i}")}
+  action(:add_line)                                     {|i=0,b| b.iframeportlet.button(:id => "addLineField-Add_line#{i}").when_present.click ; b.wait_until_loaded}
+  action(:delete_line)                                  {|i=1,b| b.iframeportlet.button(:id => "deleteLineField-Delete_line#{i}").when_present.click ; b.wait_until_loaded}
 
   # -- Search Results --
   element(:results)                                     {|b| b.iframeportlet.div(:id => 'SearchFieldResultSection')}
   element(:text_in_results)                             {|which,b| b.iframeportlet.span(:class => 'uif-readOnlyContent',:text => /#{which}/)}
   value(:text_in_results?)                              {|which,b| b.text_in_results(which).present?}
   element(:link_in_results)                             {|which,b| b.iframeportlet.div(:class => 'uif-linkField').a(:text => /#{which}/) }
-  value(:link_in_results?)                              {|which,b| b.link_in_result(which).present?}
+  value(:link_in_results?)                              {|which,b| b.link_in_results(which).present?}
   element(:any_in_results)                              {|which,b| if b.text_in_results?(which)
                                                                       b.text_in_results(which)
                                                                    elsif b.link_in_results?(which)
