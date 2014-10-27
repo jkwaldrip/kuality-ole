@@ -41,7 +41,7 @@ class WorkbenchPage < KradPage
   element(:text_in_results)                             {|which,b| b.iframeportlet.span(:class => 'uif-readOnlyContent',:text => /#{which}/)}
   value(:text_in_results?)                              {|which,b| b.text_in_results(which).present?}
   element(:link_in_results)                             {|which,b| b.iframeportlet.div(:class => 'uif-linkField').a(:text => /#{which}/) }
-  value(:link_in_results?)                              {|which,b| b.link_in_result(which).present?}
+  value(:link_in_results?)                              {|which,b| b.link_in_results(which).present?}
   element(:any_in_results)                              {|which,b| if b.text_in_results?(which)
                                                                       b.text_in_results(which)
                                                                    elsif b.link_in_results?(which)

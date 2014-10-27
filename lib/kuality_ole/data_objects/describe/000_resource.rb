@@ -1,5 +1,5 @@
 #  Copyright 2005-2014 The Kuali Foundation
-#
+
 #  Licensed under the Educational Community License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at:
@@ -151,6 +151,20 @@ class Resource < DataFactory
   # Lookup a bib record.
   def lookup_bib
     visit WorkbenchPage do |page|
+      page.document_type.when_present.fit 'Bibliographic'
+      page.wait_until_loaded
+      page.search_type.when_present.fit 'Search'
+      page.wait_until_loaded
+      page.search_for.when_present.fit @bib.title
+      page.search_conditions.when_present.fit 'As a phrase'
+      page.search_in_field.when_present.fit 'Title'
+      page.add_line.click
+      page.wait_until_loaded
+      page.search_for(1).when_present.fit @bib.author
+      page.search_conditions(1).when_present.fit 'As a phrase'
+      page.search_in_field(1).when_present.fit 'Author'
+      page.search
+      expect(page.link_in_results?(@bib.title) && page.text_in_results?(@bib.author)).to be_truthy
     end
   end
 
