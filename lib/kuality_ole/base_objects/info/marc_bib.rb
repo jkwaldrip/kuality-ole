@@ -43,21 +43,21 @@ class MarcBib < InfoObject
     }
 
     @options = defaults.merge(opts)
-    @options[:title] = if @options[:marc_lines].detect {|line| line.tag == '245'} 
-                         @options[:marc_lines].detect {|line| line.tag == '245'}.values.join
-                       else
-                         ''
-                       end
-    @options[:author] = if @options[:marc_lines].detect {|line| line.tag == '100'}
-                          @options[:marc_lines].detect {|line| line.tag == '100'}.values.join
-                        else
-                          ''
-                        end
     set_opts_attribs(@options)
-
-    # TODO Rewrite class and spec with expectation that :title and :author are derived, not parameters
-
   end
+
+  # Return the concatenated value of MARC 245, if any.
+  #   An empty string will be returned if MARC 245 is not found.
+  def title
+    @marc_lines.detect {|line| line.tag == '245'} ? @marc_lines.detect {|line| line.tag == '245'}.values.join : ''
+  end
+
+  # Return the concatenated value of MARC 100, if any.
+  #   An empty string will be returned if MARC 245 is not found.
+  def author
+    @marc_lines.detect {|line| line.tag == '100'} ? @marc_lines.detect {|line| line.tag == '100'}.values.join : ''
+  end
+
 
   # Convert the info in this MarcBib class to a RubyMarc record.
   # - Creates an @record instance variable on the MarcBib instance.
@@ -89,7 +89,7 @@ class MarcBib < InfoObject
   alias_method(:to_marc,:to_mrc)
 
   # Write a single record to a Marc (.mrc) file.
-  # @note This method expects an @title and an @record to exist!
+  # @note This method expects a title and an @record to exist!
   #   The intended usage is to invoke .to_mrc first, followed by .to_file
   #
   # Options:
@@ -101,7 +101,7 @@ class MarcBib < InfoObject
     raise KualityOle::Error,"MARC::Record not found." unless @record.is_a?(MARC::Record)
     # TODO Create :format option to enable Marc-XML support.
     defaults = {      
-      :filename         => "#{KualityOle.timestamp}-#{@title}.mrc",
+      :filename         => "#{KualityOle.timestamp}-#{title}.mrc",
       :path             => 'data/uploads/mrc/',
       :force?           => false
     }

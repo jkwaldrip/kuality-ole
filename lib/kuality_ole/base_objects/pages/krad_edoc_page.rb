@@ -39,11 +39,11 @@ class KradEdocPage < KradPage
                                           }
 
   # -- Control Elements --
-  element(:submit_button)                 {|b| b.iframeportlet.button(:id => 'oleSubmit')}
+  element(:submit_button)                 {|b| b.iframeportlet.button(:text => /submit/i)}
   action(:submit)                         {|b| b.submit_button.when_present.click ; b.status}
   element(:save_button)                   {|b| b.iframeportlet.button(:id => 'usave')}
   action(:save)                           {|b| b.save_button.when_present.click ; b.status}
-  element(:back_button)                   {|b| b.iframeportlet.button(:id => 'oleClose')}
+  element(:back_button)                   {|b| b.iframeportlet.button(:text => /Back/i)}
   element(:cancel_button)                 {|b| b.iframeportlet.a(:id => 'ucancel')}
 
 end

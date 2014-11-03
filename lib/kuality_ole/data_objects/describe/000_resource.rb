@@ -1,5 +1,5 @@
 #  Copyright 2005-2014 The Kuali Foundation
-#
+
 #  Licensed under the Educational Community License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at:
@@ -116,7 +116,7 @@ class Resource < DataFactory
   # @note This method assumes that we're starting from the HoldingsEditorPage.
   #   When invoking this method outside of initial bib creation, please retrieve
   #   the bib record through the lookup_bib method, then open the relevant holdings
-  #   record with the open_holdings method.
+  #   record with the edit_holdings method.
   #
   # Params:
   #   which_item        Fixnum          The index of the item record to enter.
@@ -130,7 +130,7 @@ class Resource < DataFactory
   #
   def create_item(which_item = 0,which_holdings = 0)
     if which_item == 0
-      open_item(which_item,which_holdings)
+      edit_item(which_item,which_holdings)
     else
       on HoldingsEditorPage do |page|
         # add the item and wait for the blank item editor page to appear
@@ -150,20 +150,63 @@ class Resource < DataFactory
 
   # Lookup a bib record.
   def lookup_bib
+    visit WorkbenchPage do |page|
+      page.document_type.when_present.fit 'Bibliographic'
+      page.wait_until_loaded
+      page.search_type.when_present.fit 'Search'
+      page.wait_until_loaded
+      page.search_for.when_present.fit @bib.title
+      page.search_conditions.when_present.fit 'As a phrase'
+      page.search_in_field.when_present.fit 'Title'
+      page.add_line
+      page.search_for(1).when_present.fit @bib.author
+      page.search_conditions(1).when_present.fit 'As a phrase'
+      page.search_in_field(1).when_present.fit 'Author'
+      page.search
+      expect(page.link_in_results?(@bib.title) && page.text_in_results?(@bib.author)).to be_truthy
+    end
   end
 
   # Lookup a hldings record.
   def lookup_holdings(which=0)
+    holdings = @holdings[which]
+    visit WorkbenchPage do |page|
+      page.document_type.when_present.fit 'Holdings'
+      page.wait_until_loaded
+      page.search_type.when_present.fit 'Search'
+      page.wait_until_loaded
+      page.search_for.when_present.fit holdings.call_number
+      page.search_conditions.when_present.fit 'As a phrase'
+      page.search_in_field.when_present.fit 'ANY'
+      page.add_line
+      page.search_for(1).when_present.fit holdings.location
+      page.search_conditions(1).when_present.fit 'As a phrase'
+      page.search_in_field(1).when_present.fit 'Location'
+      page.search
+      expect(page.text_in_results?(holdings.call_number) && page.text_in_results?(holdings.location)).to be_truthy
+    end
   end
 
   # Lookup an item record.
   def lookup_item(which_holdings=0,which_item=0)
+    item = @holdings[which_holdings].items[which_item]
+    visit WorkbenchPage do |page|
+      page.document_type.when_present.fit 'Item'
+      page.wait_until_loaded
+      page.search_type.when_present.fit 'Search'
+      page.wait_until_loaded
+      page.search_for.when_present.fit item.barcode
+      page.search_conditions.when_present.fit 'As a phrase'
+      page.search_in_field.when_present.fit 'Item Barcode'
+      page.search
+      expect(page.text_in_results?(item.barcode)).to be_truthy
+    end
   end
 
   # Open a holdings record from the Bib Editor page.
   # Params:
   #   which       Fixnum          The 1-based number of the holdings record to open.
-  def open_holdings(which = 1)
+  def edit_holdings(which = 1)
     on BibEditorPage do |page|
       page.holdings_link(which).when_present.click
     end
@@ -173,7 +216,7 @@ class Resource < DataFactory
   # Params:
   #   which_item        Fixnum      The index of the item record to open.
   #   which_holdings    Fixnum      The index of the holdings record to open.
-  def open_item(which_item = 0,which_holdings = 0)
+  def edit_item(which_item = 0,which_holdings = 0)
     on HoldingsEditorPage do |page|
       item_link = page.item_link(which_holdings,which_item)
       page.expand_holdings(which_holdings)

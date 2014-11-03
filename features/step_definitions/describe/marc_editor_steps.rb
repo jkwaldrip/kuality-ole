@@ -32,3 +32,5 @@ Given /^I create a resource$/ do
   @resource = Resource.new @browser
   @resource.create
 end
+
+
