@@ -3,6 +3,23 @@
 Kuality OLE is a TestFactory-based testing application for the Kuali Open Library Environment.
 It seeks to adhere to the TestFactory design pattern wherever possible.
 
+## Installation
+
+On a POSIX-compliant operating system like Linux, Mac OS X, or any Unix variant, run the following
+command in a terminal to clone this Git repository:
+
+    $ git clone git@github.com:kuali/kuality-ole.git
+
+Or if you prefer, you can use the HTTP address:
+
+    $ git clone https://github.com/kuali/kuality-ole.git
+
+Once you have successfully cloned the repository, use the Ruby Bundler gem to install all
+dependencies from within the project directory:
+
+    $ cd kuality-ole
+    $ bundle install
+
 ## Usage
 
 In the upper-level directory for this repository, run all available tests by invoking Cucumber:
