@@ -127,7 +127,6 @@ class PageFactory
   #
   def wait_until_loaded
     wait_for_ajax Watir.default_timeout,"\n#{self.class.name}: wait until loaded."
-    # wait_for.each {|lmnt| self.send(lmnt).wait_until_present } unless wait_for.nil?
     Watir::Wait.until {wait_for.each {|lmnt| self.send(lmnt).present?}} unless wait_for.nil?
     true
   end
