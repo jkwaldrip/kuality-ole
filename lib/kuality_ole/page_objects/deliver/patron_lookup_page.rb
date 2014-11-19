@@ -17,32 +17,32 @@
 class PatronLookupPage < KradPage
 
   # # -- Create New Patron --
-  action(:create_new) { |b| b.iframeportlet.link(:text => /[Cc]reate [Nn]ew/).when_present.click }
+  action(:create_new)             { |b| b.iframeportlet.link(:text => /[Cc]reate [Nn]ew/).when_present.click }
 
   # # Set Patron Lookup elements.
-  element(:patron) { |b| b.iframeportlet.text_field(:id => 'olePatronId_control') }
-  element(:barcode) { |b| b.iframeportlet.text_field(:id => 'barcode_control') }
-  element(:first_name) { |b| b.iframeportlet.text_field(:id => 'firstName_control') }
-  element(:middle_name) { |b| b.iframeportlet.text_field(:id => 'middleName_control') }
-  element(:last_name) { |b| b.iframeportlet.text_field(:id => 'lastName_control') }
-  element(:patron_type) { |b| b.iframeportlet.select_list(:id => 'borrowerType_control') }
-  element(:email_address) { |b| b.iframeportlet.text_field(:id => 'emailAddress_control') }
+  element(:patron)                { |b| b.iframeportlet.text_field(:id => 'olePatronId_control') }
+  element(:barcode)               { |b| b.iframeportlet.text_field(:id => 'barcode_control') }
+  element(:first_name)            { |b| b.iframeportlet.text_field(:id => 'firstName_control') }
+  element(:middle_name)           { |b| b.iframeportlet.text_field(:id => 'middleName_control') }
+  element(:last_name)             { |b| b.iframeportlet.text_field(:id => 'lastName_control') }
+  element(:patron_type)           { |b| b.iframeportlet.select_list(:id => 'borrowerType_control') }
+  element(:email_address)         { |b| b.iframeportlet.text_field(:id => 'emailAddress_control') }
 
   # # Search Controls
-  action(:active_yes) { |b| b.iframeportlet.radio(:id => 'activeIndicator_control_0').click }
-  action(:active_no) { |b| b.iframeportlet.radio(:id => 'activeIndicator_control_1').click }
-  action(:active_both) { |b| b.iframeportlet.radio(:id => 'activeIndicator_control_2').click }
-  action(:search)  {|b| b.iframeportlet.button(:text => /search/i).when_present.click ; b.wait_until_loaded }
-  action(:clear)  {|b| b.iframeportlet.button(:text => /clear/i).when_present.click ; b.wait_until_loaded }
-  action(:cancel)  {|b| b.iframeportlet.button(:text => /cancel/i).when_present.click ; b.wait_until_loaded }
+  action(:active_yes)             { |b| b.iframeportlet.radio(:id => 'activeIndicator_control_0').click }
+  action(:active_no)              { |b| b.iframeportlet.radio(:id => 'activeIndicator_control_1').click }
+  action(:active_both)            { |b| b.iframeportlet.radio(:id => 'activeIndicator_control_2').click }
+  action(:search)                 {|b| b.iframeportlet.button(:text => /search/i).when_present.click ; b.wait_until_loaded }
+  action(:clear)                  {|b| b.iframeportlet.button(:text => /clear/i).when_present.click ; b.wait_until_loaded }
+  action(:cancel)                 {|b| b.iframeportlet.button(:text => /cancel/i).when_present.click ; b.wait_until_loaded }
 
   # # -- Search Results --
-  value(:results?) { |b| b.iframeportlet.span(:id => /searchResult_olePatronId/).present? }
+  value(:results?)                { |b| b.iframeportlet.span(:id => /searchResult_olePatronId/).present? }
 
-  element(:text_in_results) { |which, b| b.iframeportlet.table(:class => 'dataTable').a(:text => /#{which}/) }
-  value(:text_in_results?) { |which, b| b.text_in_results(which).present? }
+  element(:text_in_results)       { |which, b| b.iframeportlet.table(:class => 'dataTable').a(:text => /#{which}/) }
+  value(:text_in_results?)        { |which, b| b.text_in_results(which).present? }
 
-  element(:link_by_text)   {|txt,which,b| b.text_in_results(which).parent.parent.parent.td(:index => 0).a(:text => /#{txt}/)}
+  element(:link_by_text)          {|txt,which,b| b.text_in_results(which).parent.parent.parent.td(:index => 0).a(:text => /#{txt}/)}
 
 
 end
